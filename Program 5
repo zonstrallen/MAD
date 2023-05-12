@@ -1,0 +1,108 @@
+XML:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="59dp"
+android:layout_alignParentEnd="true"
+android:layout_alignParentBottom="true"
+android:layout_marginEnd="51dp"
+android:layout_marginBottom="642dp"
+android:text="Counter Application"
+android:textAlignment="center"
+android:textColor="#2196F3"
+android:textSize="36sp"
+android:textStyle="bold"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintLeft_toLeftOf="parent"
+app:layout_constraintRight_toRightOf="parent"
+app:layout_constraintTop_toTopOf="parent" />
+<TextView
+android:id="@+id/tv1"
+android:layout_width="175dp"
+android:layout_height="43dp"
+android:layout_alignParentEnd="true"
+android:layout_alignParentBottom="true"
+android:layout_marginEnd="117dp"
+android:layout_marginBottom="502dp"
+android:text="Counter Value"
+android:textAlignment="center" />
+<Button
+android:id="@+id/bt1"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignParentEnd="true"
+android:layout_alignParentBottom="true"
+android:layout_marginEnd="282dp"
+android:layout_marginBottom="401dp"
+android:shadowColor="#E91E63"
+android:text="START"
+android:textSize="18sp" />
+<Button
+android:id="@+id/bt2"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignParentEnd="true"
+android:layout_alignParentBottom="true"
+android:layout_marginEnd="41dp"
+android:layout_marginBottom="400dp"
+android:shadowColor="@color/purple_200"
+android:text="STOP"
+android:textColor="@color/white"
+android:textSize="18sp" />
+</RelativeLayout>
+
+
+
+
+
+
+JAVA:
+package com.example.lbp5;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+public class MainActivity extends AppCompatActivity {
+Button b1,b2;
+TextView tc1;
+int i=1;
+Handler h1=new Handler();
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+b1=findViewById(R.id.bt1);
+b2=findViewById(R.id.bt2);
+tc1=findViewById(R.id.tv1);
+b1.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v)
+{
+h1.postDelayed(updateTimerThread,0);
+}
+});
+b2.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+h1.removeCallbacks(updateTimerThread);
+}
+});
+}
+private final Runnable updateTimerThread=new Runnable() {
+@Override
+public void run() {
+tc1.setText(""+i);
+h1.postDelayed(this,1000);
+i++;
+}
+};
+}
